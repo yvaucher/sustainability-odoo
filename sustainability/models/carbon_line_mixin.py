@@ -187,7 +187,6 @@ class CarbonLineMixin(models.AbstractModel):
         Choose the right factor(s) to compute carbon value, store it with the details of the computation
         """
         lines_to_compute = self._filter_lines_to_compute(force_compute=force_compute)
-        skipped_lines = self.env[self._name]
 
         for line in lines_to_compute:
             kw_arguments = line._get_carbon_compute_kwargs()
@@ -210,12 +209,17 @@ class CarbonLineMixin(models.AbstractModel):
                 if record.has_valid_carbon_fallback(carbon_type):
                     record = record[f"carbon_{carbon_type}_fallback_reference"]
                 else:
-                    # This shouldn't happen if can_use_X_carbon_value is well implemented
-                    _logger.warning(
-                        f"Skip carbon compute for {line._name}({line.id}) - '{line.display_name}' (last incorrect fallback: {record._name}({record.id}) '{record.display_name}') -  this line"
+                    fallback_record = f"{record._name}, {record.id}"
+                    origin = _(
+                        "No fallback found for this record (company value will be used instead)"
                     )
-                    skipped_lines |= line
-                    continue
+                    record.update(
+                        {
+                            f"carbon_{carbon_type}_mode": "auto",
+                            f"carbon_{carbon_type}_fallback_reference": fallback_record,
+                            f"carbon_{carbon_type}_value_origin": origin,
+                        }
+                    )
 
             factors, distribution, model_name = record.get_carbon_distribution(
                 carbon_type
@@ -232,7 +236,7 @@ class CarbonLineMixin(models.AbstractModel):
                 "model_name": model_name,
             }
 
-        return skipped_lines
+        return self.env[self._name]
 
     def _get_line_origin_vals_list(self) -> list[dict]:
         """Return the vals used to create a carbon.line.origin record"""
