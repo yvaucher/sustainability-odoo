@@ -57,6 +57,7 @@
         "demo/carbon_factor_value.xml",
         "demo/demo.xml",
     ],
+    "pre_init_hook": "_pre_init_sustainability",
     "installable": True,
     "application": True,
     "auto_install": False,
