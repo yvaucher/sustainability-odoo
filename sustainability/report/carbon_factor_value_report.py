@@ -16,7 +16,6 @@ class CarbonFactorValueReport(models.Model):
     carbon_value = fields.Float(string="Total CO2 (kg)", readonly=True)
 
     # ==== Carbon Factor fields ====
-    factor_create_date = fields.Date(readonly=True)
     name = fields.Char(readonly=True)
     carbon_database_id = fields.Many2one(
         "carbon.factor.database", string="Database", readonly=True
@@ -42,23 +41,6 @@ class CarbonFactorValueReport(models.Model):
         comodel_name="carbon.factor", string="Parent", readonly=True
     )
 
-    # _depends = {
-    #     "carbon.factor.value": ["date", "type_id", "factor_id"],
-    #     "carbon.factor": [
-    #         "name",
-    #         "carbon_database_id",
-    #         "carbon_contributor_id",
-    #         "carbon_compute_method",
-    #         "ghg_view_mode",
-    #         "active",
-    #         "uncertainty_percentage",
-    #         "country_id",
-    #         "country_group_id",
-    #         "carbon_value",
-    #         "create_date",
-    #     ],
-    # }
-
     @property
     def _table_query(self):
         return "%s %s %s" % (self._select(), self._from(), self._where())
@@ -74,7 +56,6 @@ class CarbonFactorValueReport(models.Model):
                 cfv.carbon_uom_id AS carbon_uom_id,
                 cfv.carbon_value AS carbon_value,
                 cf.name AS name,
-                cf.create_date AS factor_create_date,
                 cf.carbon_database_id AS carbon_database_id,
                 cf.carbon_contributor_id AS carbon_contributor_id,
                 cf.carbon_compute_method AS carbon_compute_method,

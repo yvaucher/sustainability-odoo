@@ -31,7 +31,7 @@
                         <filter string="Contributor" name="by_carbon_contributor_id" context="{'group_by':'carbon_contributor_id'}" />
                         <filter string="Uncertainty" name="by_uncertainty_percentage" context="{'group_by':'uncertainty_percentage'}" />
                         <filter string="Type" name="by_type_id" context="{'group_by':'type_id'}" />
-                        <filter string="Create date" name="by_factor_create_date" context="{'group_by':'factor_create_date'}" />
+                        <filter string="Value Date" name="by_date" context="{'group_by':'date'}" />
                         <filter string="Detailed by gas" name="by_ghg_view_mode" context="{'group_by':'ghg_view_mode'}" />
                         <filter string="Unit of measure" name="by_carbon_uom_id" context="{'group_by':'carbon_uom_id'}" />
                         <separator />
