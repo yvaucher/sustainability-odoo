@@ -46,7 +46,7 @@
             <field name="name">carbon.factor.value.report.graph.view</field>
             <field name="model">carbon.factor.value.report</field>
             <field name="arch" type="xml">
-                <graph sample="1" string="Emission Factor Values" type="bar">
+                <graph sample="1" string="Emission Factors By Vintage" type="bar">
                     <field name="carbon_value" type="measure" />
                     <field name="date" type="col" interval="year" />
                 </graph>
@@ -54,7 +54,7 @@
         </record>
 
         <record id="carbon_factor_value_report_action" model="ir.actions.act_window">
-            <field name="name">Emission Factor Values Analysis</field>
+            <field name="name">Emission Factors By Vintage Analysis</field>
             <field name="res_model">carbon.factor.value.report</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">graph</field>

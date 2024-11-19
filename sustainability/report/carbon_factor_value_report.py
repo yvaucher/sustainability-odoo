@@ -3,7 +3,7 @@ from odoo import api, fields, models
 
 class CarbonFactorValueReport(models.Model):
     _name = "carbon.factor.value.report"
-    _description = "Emission Factor Values"
+    _description = "Emission Factors By Vintage"
     _auto = False
     _rec_name = "date"
     _order = "date desc"
